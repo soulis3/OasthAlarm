@@ -1,0 +1,161 @@
+package com.tasos.oasthalarm;
+
+import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class ArivalTimes extends Activity {
+	
+	
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.httpex);
+		TextView httpStuff = (TextView) findViewById(R.id.tvHttp);
+		
+		Line lineHelper= new Line(this);
+		lineHelper.createDatabase();
+		lineHelper.open();
+		Cursor cL = lineHelper.getLineId(ShowLines.lineName);
+		String busLineId = Utility.GetColumnValue(cL, "id");
+		
+		String busRouteDir = ShowRoute.broute;
+		
+		Stop stopHelper= new Stop(this);
+		stopHelper.createDatabase();   
+		stopHelper.open();
+		Cursor cS = stopHelper.getStopId(ShowStops.stopName,busLineId,busRouteDir);
+		String busStopId = Utility.GetColumnValue(cS, "id");
+		
+		
+		
+		Cursor cR = stopHelper.getSOrder(busLineId, busStopId, busRouteDir);
+		String busStopOrder = Utility.GetColumnValue(cR, "sorder");
+		
+		GetMethodEx test2 = new GetMethodEx();
+		String diaisi = URLEncoder.encode("#");
+		
+		try {			
+			String data = test2.getInternetData(("http://m.oasth.gr/")+ diaisi
+							+ ("index.php?md=3&sn=3" +
+							"&start=" + busStopId +
+							"&sorder=" + busStopOrder +
+							//"&rc=137" +
+							"&line=" + busLineId +
+							"&dir=" + busRouteDir ));
+			Pattern pattern1 = Pattern.compile("<(.)*?>");
+			Pattern pattern2 = Pattern.compile("\\s{2}");
+			Pattern pattern3 = Pattern.compile("//var ab,aa,hash,(.)*");
+			Pattern pattern4 = Pattern.compile("(.)*?\\d{4}ажинг се ");
+			Pattern pattern5 = Pattern.compile("\\d{4}ажинг се ");
+			Pattern pattern6 = Pattern.compile("ажинг се ");
+			Pattern pattern7 = Pattern.compile("\\s");
+			
+			boolean VehicleExists = false;
+			Matcher matcher;
+			
+			matcher = pattern6.matcher(data); 
+			if(matcher.find())
+				 VehicleExists = true;
+			else 
+				 VehicleExists = false ;
+			 
+			if(VehicleExists){
+				matcher = pattern1.matcher(data);
+				data = matcher.replaceAll("");
+				matcher = pattern2.matcher(data);
+				data = matcher.replaceAll(" ");
+				matcher = pattern3.matcher(data);
+				data = matcher.replaceAll("");
+				matcher = pattern4.matcher(data);
+				data = matcher.replaceFirst("");
+				matcher = pattern5.matcher(data);
+				data = matcher.replaceAll("");
+				matcher = pattern7.matcher(data);
+				data = matcher.replaceAll("");
+				
+				
+				
+				String sdata= "";
+				String nl = System.getProperty("line.separator");
+				
+				//dimiourgoume to pinaka char pou periexei kathe stoixeio toy string data
+				char [] times = new char[data.length()];
+				for (int i = 0;i<times.length;i++ ){
+					times[i] = data.charAt(i);
+				}
+				
+				//elegxoume an einai integer kathe stoixeio gia na vgaloume tous xronous
+				LinkedList times1 = new LinkedList();
+				String s1="";
+				int a=0;
+				
+				for (int i = 0;i<times.length;i++ ){
+					if(Character.isDigit(times[i])){
+						s1=s1+times[i];				
+					}
+					else {
+						a++;
+						times1.add(s1);
+						//times1[a]=s1;
+						s1="";
+					}
+				}
+				
+				/*for (int i = 0;i<times1.size();i++ ){
+					sdata = sdata + times1.get(i) + nl ;
+				} 
+				*/
+				
+				int [] times2 = new int [times1.size()];
+				for (int i = 0;i<times2.length;i++ ){
+					try {
+						times2[i] =Integer.parseInt((String) times1.get(i));
+					} catch(NumberFormatException nfe) {
+						nfe.printStackTrace();
+					}
+				}
+				
+				Arrays.sort(times2);
+				
+				for (int i = 0;i<times2.length;i++ ){
+					sdata = sdata + times2[i] + nl ;
+				}
+			
+				
+				httpStuff.setText(sdata);
+				
+			}
+				 
+			else 
+				httpStuff.setText("дем упаявеи овгла");
+			
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
+				
+		//Utility.ShowMessageBox(this,ShowStops.stopName+busStopId+" "+busStopOrder);
+		
+		
+
+	}
+
+}

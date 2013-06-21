@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OasthAlarm</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="linename"></string>
+	
+    <string-array name="minutes_array">
+        <item>1 λεπτό</item>
+        <item>2 λεπτά</item>
+        <item>3 λεπτά</item>
+        <item>4 λεπτά</item>
+        <item>5 λεπτά</item>
+        <item>6 λεπτά</item>
+        <item>7 λεπτά</item>
+        <item>8 λεπτά</item>
+        <item>9 λεπτά</item>
+        <item>10 λεπτά</item>
+        <item>11 λεπτά</item>
+        <item>12 λεπτά</item>
+        <item>13 λεπτά</item>
+        <item>14 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>16 λεπτά</item>
+        <item>17 λεπτά</item>
+        <item>18 λεπτά</item>
+        <item>19 λεπτά</item>
+        <item>20 λεπτά</item>
+        <item>21 λεπτά</item>
+        <item>22 λεπτά</item>
+        <item>23 λεπτά</item>
+        <item>24 λεπτά</item>
+        <item>25 λεπτά</item>
+        <item>26 λεπτά</item>
+        <item>27 λεπτά</item>
+        <item>28 λεπτά</item>
+        <item>29 λεπτά</item>
+        <item>30 λεπτά</item>
+    </string-array>
+ 
+</resources>

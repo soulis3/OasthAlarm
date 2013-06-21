@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvProorismos"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Επιλογή Προορισμού" />
+    
+    <TextView
+        android:id="@+id/tvLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/bPros"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="ΠΡΟΣ ΤΟ ΤΕΡΜΑ" />
+
+    <Button
+        android:id="@+id/bEpistrofi"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="ΠΡΟΣ ΤΗ ΒΑΣΗ" />
+
+</LinearLayout>

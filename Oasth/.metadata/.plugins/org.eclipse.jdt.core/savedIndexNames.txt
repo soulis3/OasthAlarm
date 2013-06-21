@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+C:\Users\tasos\Oasth\.metadata\.plugins\org.eclipse.jdt.core
+4038163858.index
+2883176079.index
+2427012733.index
+72854742.index

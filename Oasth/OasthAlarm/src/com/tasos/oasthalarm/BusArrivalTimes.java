@@ -1,0 +1,116 @@
+package com.tasos.oasthalarm;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import android.database.Cursor;
+
+public class BusArrivalTimes {
+	/*try {			
+		String data = test2.getInternetData(("http://m.oasth.gr/")+ diaisi
+						+ ("index.php?md=3&sn=3" +
+						"&start=" + busStopId +
+						"&sorder=" + busStopOrder +
+						//"&rc=137" +
+						"&line=" + busLineId +
+						"&dir=" + busRouteDir ));
+		Pattern pattern1 = Pattern.compile("<(.)*?>");
+		Pattern pattern2 = Pattern.compile("\\s{2}");
+		Pattern pattern3 = Pattern.compile("//var ab,aa,hash,(.)*");
+		Pattern pattern4 = Pattern.compile("(.)*?\\d{4}ажинг се ");
+		Pattern pattern5 = Pattern.compile("\\d{4}ажинг се ");
+		Pattern pattern6 = Pattern.compile("ажинг се ");
+		Pattern pattern7 = Pattern.compile("\\s");
+		Pattern pattern8 = Pattern.compile("\\$.*");
+		
+		boolean VehicleExists = false;
+		Matcher matcher;
+		
+		matcher = pattern6.matcher(data); 
+		if(matcher.find())
+			 VehicleExists = true;
+		else 
+			 VehicleExists = false ;
+		 
+		if(VehicleExists){
+			matcher = pattern1.matcher(data);
+			data = matcher.replaceAll("");
+			matcher = pattern2.matcher(data);
+			data = matcher.replaceAll(" ");
+			matcher = pattern3.matcher(data);
+			data = matcher.replaceAll("");
+			matcher = pattern4.matcher(data);
+			data = matcher.replaceFirst("");
+			matcher = pattern5.matcher(data);
+			data = matcher.replaceAll("");
+			matcher = pattern7.matcher(data);
+			data = matcher.replaceAll("");
+			matcher = pattern8.matcher(data);
+			data = matcher.replaceAll("");
+			
+			
+			
+			String sdata= "";
+			String nl = System.getProperty("line.separator");
+			
+			//dimiourgoume to pinaka char pou periexei kathe stoixeio toy string data
+			char [] times = new char[data.length()];
+			for (int i = 0;i<times.length;i++ ){
+				times[i] = data.charAt(i);
+			}
+			
+			//elegxoume an einai integer kathe stoixeio gia na vgaloume tous xronous
+			LinkedList times1 = new LinkedList();
+			String s1="";
+			int a=0;
+			
+			for (int i = 0;i<times.length;i++ ){
+				if(Character.isDigit(times[i])){
+					s1=s1+times[i];				
+				}
+				else {
+					a++;
+					times1.add(s1);
+					//times1[a]=s1;
+					s1="";
+				}
+			}
+			
+		
+			
+			int [] times2 = new int [times1.size()];
+			for (int i = 0;i<times2.length;i++ ){
+				try {
+					times2[i] =Integer.parseInt((String) times1.get(i));
+				} catch(NumberFormatException nfe) {
+					nfe.printStackTrace();
+				}
+			}
+			
+			Arrays.sort(times2);
+			
+			for (int i = 0;i<times2.length;i++ ){
+				sdata = sdata + times2[i] + nl ;
+			}
+		
+			
+			httpStuff.setText(sdata);
+			
+		}
+			 
+		else 
+			httpStuff.setText("дем упаявеи овгла");
+		
+		
+		
+		
+		
+		
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	*/
+}

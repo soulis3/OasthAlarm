@@ -1,0 +1,214 @@
+package com.tasos.oasthalarm;
+
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class AlarmNot extends Activity implements OnClickListener{
+	final static private long ONE_SECOND = 1000;
+	final static private long  ONE_MINUTE = ONE_SECOND * 60;
+	
+	Button confirm,cancel;
+	
+	PendingIntent pi;
+	BroadcastReceiver br;
+	AlarmManager am;
+	NotificationManager nm;
+	static final int uniqueID = 1394885;
+	int exactMin;
+	int notMin;
+	MediaPlayer ourSong;
+	boolean NotExists;
+	boolean isRinging;
+	int table[] = null;//{2,5,7,10,12};
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.alarm);
+		confirm= (Button) findViewById(R.id.bConfirm);
+		cancel= (Button) findViewById(R.id.bCancel);
+		confirm.setOnClickListener(this);
+		cancel.setOnClickListener(this);
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		nm.cancel(uniqueID);
+		NotExists=false;
+		isRinging=false;
+		TextView tvAr = (TextView) findViewById(R.id.tvArivalTimes);
+		
+		if(table==null){
+			AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+			dlgAlert.setMessage("Δεν υπάρχουν οχήματα αυτή τη στιγμή");
+			dlgAlert.setTitle("App Title");
+			dlgAlert.setPositiveButton("Ok",
+				    new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog, int which) {
+				          //dismiss the dialog  
+				        	finish();
+				        }
+				    });
+			dlgAlert.setCancelable(true);
+			dlgAlert.create().show();
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()){
+		case R.id.bConfirm :
+			
+			
+			createNotification();
+			br = new BroadcastReceiver(){
+
+				@Override
+				public void onReceive(Context c, Intent i) {
+					// TODO Auto-generated method stub
+					//Toast.makeText(c, "Η ειδοποιήση καταχωρήθηκε "+"\n exact : "+exactMin+"\n notmin : "+notMin, Toast.LENGTH_LONG).show();
+					
+					ourSong = MediaPlayer.create(AlarmNot.this, R.raw.splashsound);
+					ourSong.start();
+					isRinging=true;
+				}
+				
+			};
+			registerReceiver(br, new IntentFilter("com.tasos.oasthalarm") );
+	        pi = PendingIntent.getBroadcast( this, 0, new Intent("com.tasos.oasthalarm"), 0 );
+	        am = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+	        NotExists=true;
+	       //createNotification();
+			
+			
+			exactMin = getExactMin(table);
+			notMin=exactMin-SelectTime.timeNot;
+			am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (notMin * ONE_MINUTE), pi );
+			
+			
+		/*	if(isOnline()){
+			ArivalTimes ar=new ArivalTimes();
+			tvAr.setText(ar.sdata);
+			exactMin = getExactMin(ar.arTimes);
+			am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (SelectTime.timeNot * ONE_SECOND), pi );
+			}
+			else {
+				startActivityForResult(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS), 0);
+			}
+		*/
+			break;
+		case R.id.bCancel:
+			if(NotExists){
+				nm.cancel(uniqueID);
+				am.cancel(pi);
+			    unregisterReceiver(br);
+			    if(isRinging){
+			    	ourSong.release();
+			    	finish();
+			    }
+			    else
+			    	finish();
+			}else{
+				nm.cancel(uniqueID);
+				//am.cancel(pi);
+			    //unregisterReceiver(br);
+			    //ourSong.release();
+				finish();
+			}
+			break;
+		}
+	}
+	/*
+	private void setup() {
+		// TODO Auto-generated method stub
+		br = new BroadcastReceiver(){
+
+			@Override
+			public void onReceive(Context c, Intent i) {
+				// TODO Auto-generated method stub
+				//Toast.makeText(c, "Η ειδοποιήση καταχωρήθηκε "+"\n exact : "+exactMin+"\n notmin : "+notMin, Toast.LENGTH_LONG).show();
+				
+				ourSong = MediaPlayer.create(AlarmNot.this, R.raw.splashsound);
+				ourSong.start();
+			}
+			
+		};
+		registerReceiver(br, new IntentFilter("com.tasos.oasthalarm") );
+        pi = PendingIntent.getBroadcast( this, 0, new Intent("com.tasos.oasthalarm"), 0 );
+        am = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+        
+       createNotification();
+	}
+	*/
+	private int getExactMin(int[] arTimes) {
+		// TODO Auto-generated method stub
+		int i=-1;
+		do{
+			i++;
+		}while(SelectTime.timeNot>=arTimes[i]);
+		return arTimes[i];
+	}
+	private void createNotification() {
+		// TODO Auto-generated method stub
+			Intent intent = new Intent(this,AlarmNot.class);
+			PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+	        String body = "this is a msg";
+			String title= "Message";
+			Notification n = new Notification (R.drawable.ic_launcher,body,System.currentTimeMillis());
+			n.setLatestEventInfo(this, title, body , pi);
+			n.defaults = Notification.DEFAULT_ALL;
+			
+			nm.notify(uniqueID,n);
+			//finish();
+	}
+	private boolean isOnline() {
+		// TODO Auto-generated method stub
+		
+		    ConnectivityManager cm =
+		        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+		        return true;
+		    }
+		    return false;
+		
+	}
+/*
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+	       am.cancel(pi);
+	       unregisterReceiver(br);
+		super.onDestroy();
+	}
+*/
+/*
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		ourSong.release();
+		finish();
+	}
+*/
+	
+	
+}
