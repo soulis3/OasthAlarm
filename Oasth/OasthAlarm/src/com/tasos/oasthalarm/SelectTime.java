@@ -25,7 +25,10 @@ public class SelectTime extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selecttime);
+		tvST = (TextView) findViewById(R.id.tvST);
 		addListenerOnButton();
+		tvST.setText("Για την στάση "+ShowStops.stopName+" της γραμμής "+ShowLines.lineName+" με προορισμό "
+				+ShowRoute.routeName+" ειδοποίηση σε : ");
 		//addListenerOnSpinnerItemSelection();
 	}
 
@@ -55,7 +58,7 @@ public class SelectTime extends Activity {
 	private void addListenerOnSpinnerItemSelection() {
 		// TODO Auto-generated method stub
 		spinner1 = (Spinner) findViewById(R.id.spinnerMinutes);
-		tvST = (TextView) findViewById(R.id.tvST);
+		
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 		
 	}

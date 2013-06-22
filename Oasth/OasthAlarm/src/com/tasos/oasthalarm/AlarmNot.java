@@ -49,16 +49,16 @@ public class AlarmNot extends Activity implements OnClickListener{
 		confirm.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		nm.cancel(uniqueID);
-		NotExists=false;
+		//nm.cancel(uniqueID);
+		//NotExists=false;
 		isRinging=false;
 		AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 		TextView tvAr = (TextView) findViewById(R.id.tvArivalTimes);
 	/*	if(isOnline()){
 		ArivalTimes ar=new ArivalTimes();
 		tvAr.setText(ar.sdata);
-		table=new int [ar.arTimes.length];
-		System.arraycopy(ar.arTimes, 0, table, 0, ar.arTimes.length);
+		//table=new int [ar.arTimes.length];
+		//System.arraycopy(ar.arTimes, 0, table, 0, ar.arTimes.length);
 	
 	//	exactMin = getExactMin(ar.arTimes);
 	//	am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (SelectTime.timeNot * ONE_SECOND), pi );
@@ -82,7 +82,7 @@ public class AlarmNot extends Activity implements OnClickListener{
 			dlgAlert.setCancelable(true);
 			dlgAlert.create().show();
 		}
-		if(table[0]>=SelectTime.timeNot && table.length==1){
+		if(table[0]<=SelectTime.timeNot && table.length==1){
 			dlgAlert.setMessage("Επειλέξτε μεγαλύτερο χρόνο ειδοποίησης των "+table[0]+" λεπτών");
 			dlgAlert.setTitle("App Title");
 			dlgAlert.setPositiveButton("Ok",
@@ -115,33 +115,25 @@ public class AlarmNot extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()){
 		case R.id.bConfirm :
-			
-			
-			createNotification();
-			br = new BroadcastReceiver(){
-
-				@Override
-				public void onReceive(Context c, Intent i) {
-					// TODO Auto-generated method stub
-					//Toast.makeText(c, "Η ειδοποιήση καταχωρήθηκε "+"\n exact : "+exactMin+"\n notmin : "+notMin, Toast.LENGTH_LONG).show();
-					
-					ourSong = MediaPlayer.create(AlarmNot.this, R.raw.splashsound);
-					ourSong.start();
-					isRinging=true;
-				}
+			if(NotExists){
+								
+				nm.cancel(uniqueID);
+				NotExists=false;
+				if(isRinging){
+				    	ourSong.release();
+				    	//finish();
+				    }
+				Intent intent = getIntent();
+				finish();
+				startActivity(intent);
 				
-			};
-			registerReceiver(br, new IntentFilter("com.tasos.oasthalarm") );
-	        pi = PendingIntent.getBroadcast( this, 0, new Intent("com.tasos.oasthalarm"), 0 );
-	        am = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
-	        NotExists=true;
-	       //createNotification();
-			
-			
-			exactMin = getExactMin(table);
-			notMin=exactMin-SelectTime.timeNot;
-			am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (notMin * ONE_MINUTE), pi );
-			
+				//Toast.makeText(this, "Η ειδοποιήση esvise ", Toast.LENGTH_LONG).show();
+			}
+			else{
+				createAlarm();
+				confirm.setText("Snooze");
+				//Toast.makeText(this, "Η ειδοποιήση καταχωρήθηκε ", Toast.LENGTH_LONG).show();
+			}
 			
 		
 			break;
@@ -157,15 +149,41 @@ public class AlarmNot extends Activity implements OnClickListener{
 			    else
 			    	finish();
 			}else{
-				nm.cancel(uniqueID);
-				//am.cancel(pi);
-			    //unregisterReceiver(br);
-			    //ourSong.release();
+				nm.cancel(uniqueID);				
 				finish();
 			}
+			confirm.setText("Επιβεβαίωση");
 			break;
 		}
 	}
+	private void createAlarm() {
+		// TODO Auto-generated method stub
+		createNotification();
+		br = new BroadcastReceiver(){
+
+			@Override
+			public void onReceive(Context c, Intent i) {
+				// TODO Auto-generated method stub
+				//Toast.makeText(c, "Η ειδοποιήση καταχωρήθηκε "+"\n exact : "+exactMin+"\n notmin : "+notMin, Toast.LENGTH_LONG).show();
+				
+				ourSong = MediaPlayer.create(AlarmNot.this, R.raw.splashsound);
+				ourSong.start();
+				isRinging=true;
+			}
+			
+		};
+		registerReceiver(br, new IntentFilter("com.tasos.oasthalarm") );
+        pi = PendingIntent.getBroadcast( this, 0, new Intent("com.tasos.oasthalarm"), 0 );
+        am = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+       
+       //createNotification();
+		
+		
+		exactMin = getExactMin(table);
+		notMin=exactMin-SelectTime.timeNot;
+		am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (notMin * ONE_MINUTE), pi );
+	}
+
 	/*
 	private void setup() {
 		// TODO Auto-generated method stub
@@ -205,7 +223,7 @@ public class AlarmNot extends Activity implements OnClickListener{
 			Notification n = new Notification (R.drawable.ic_launcher,body,System.currentTimeMillis());
 			n.setLatestEventInfo(this, title, body , pi);
 			n.defaults = Notification.DEFAULT_ALL;
-			
+			NotExists=true;
 			nm.notify(uniqueID,n);
 			//finish();
 	}

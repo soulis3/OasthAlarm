@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tasos.oasthalarm"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.tasos.oasthalarm.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.ShowLines"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.SHOWLINES" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.ShowStops"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.SHOWSTOPS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.ShowRoute"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.SHOWROUTE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.ArivalTimes"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.ARIVALTIMES" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.SelectTime"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.SELECTTIME" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.AlarmNot"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.ALARMNOT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.HttpEx"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.HTTPEX" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

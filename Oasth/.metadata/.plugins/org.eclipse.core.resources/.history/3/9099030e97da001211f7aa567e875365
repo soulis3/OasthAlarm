@@ -1,0 +1,172 @@
+package com.tasos.oasthalarm;
+
+import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class ArivalTimes {
+	
+	
+	
+	String busLineId ;		
+	String busRouteDir;		
+	String busStopId ;		
+	String busStopOrder;	
+	static GetMethodEx test ;
+	static String diaisi;
+
+	public int[] arTimes;
+	public String sdata;
+	public String data;
+	public String exist;
+	
+		public ArivalTimes(){
+			busLineId = ShowLines.lineId;		
+			busRouteDir = ShowRoute.broute;		
+			busStopId = ShowStops.stopId;		
+			busStopOrder = ShowStops.stopOrder;			
+			test = new GetMethodEx();
+			diaisi = URLEncoder.encode("#");
+			
+			
+		
+			//if gia elegxo sto internet
+			 data=getDataFromInternet(busLineId,busRouteDir,busStopId,busStopOrder);		
+				 
+				if(VehicleExists(data)){
+					String specialData=getSpecialData(data);			
+					
+					arTimes=getArivalTimes(specialData);
+					
+					sdata=getToStringArivalTimes(arTimes);
+				
+					exist="true";
+				}
+					 
+				else {
+					//arTimes = null;
+					sdata="дем упаявеи овгла";
+					exist="false";
+				}
+		}
+
+	
+	public static String getDataFromInternet(String busLineId, String busRouteDir, String busStopId, String busStopOrder) {
+		// TODO Auto-generated method stub
+		try {
+			String data = test.getInternetData(("http://m.oasth.gr/")//+ diaisi
+					+ ("index.php?md=3&sn=3" +
+					"&start=" + busStopId +
+					"&sorder=" + busStopOrder +
+					//"&rc=137" +
+					"&line=" + busLineId +
+					"&dir=" + busRouteDir ));
+			return data;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	private boolean VehicleExists(String data) {
+		// TODO Auto-generated method stub
+		Pattern pattern = Pattern.compile("ажинг се ");
+		Matcher matcher;
+		matcher = pattern.matcher(data); 
+		if(matcher.find())
+			 return true;
+		else 
+			 return false ;
+	}
+	private String getSpecialData(String data) {
+		// TODO Auto-generated method stub
+		Pattern pattern1 = Pattern.compile("<(.)*?>");
+		Pattern pattern2 = Pattern.compile("\\s{2}");
+		Pattern pattern3 = Pattern.compile("//var ab,aa,hash,(.)*");
+		Pattern pattern4 = Pattern.compile("(.)*?\\d{4}ажинг се ");
+		Pattern pattern5 = Pattern.compile("\\d{4}ажинг се ");		
+		Pattern pattern7 = Pattern.compile("\\s");
+		Pattern pattern8 = Pattern.compile("\\$.*");
+		
+		Matcher matcher;
+		
+		matcher = pattern1.matcher(data);
+		data = matcher.replaceAll("");
+		matcher = pattern2.matcher(data);
+		data = matcher.replaceAll(" ");
+		matcher = pattern3.matcher(data);
+		data = matcher.replaceAll("");
+		matcher = pattern4.matcher(data);
+		data = matcher.replaceFirst("");
+		matcher = pattern5.matcher(data);
+		data = matcher.replaceAll("");
+		matcher = pattern7.matcher(data);
+		data = matcher.replaceAll("");
+		matcher = pattern8.matcher(data);
+		data = matcher.replaceAll("");
+		return data;
+	}
+	
+	private int[] getArivalTimes(String specialData) {
+		// TODO Auto-generated method stub
+		//dimiourgoume to pinaka char pou periexei kathe stoixeio toy string data
+		char [] times = new char[specialData.length()];
+		for (int i = 0;i<times.length;i++ ){
+			times[i] = specialData.charAt(i);
+		}
+		
+		//elegxoume an einai integer kathe stoixeio gia na vgaloume tous xronous
+		LinkedList times1 = new LinkedList();
+		String s1="";
+		int a=0;
+		
+		for (int i = 0;i<times.length;i++ ){
+			if(Character.isDigit(times[i])){
+				s1=s1+times[i];				
+			}
+			else {
+				a++;
+				times1.add(s1);
+				//times1[a]=s1;
+				s1="";
+			}
+		}
+		
+		/*for (int i = 0;i<times1.size();i++ ){
+		sdata = sdata + times1.get(i) + nl ;
+		} 
+		*/
+		
+		//metatrepoume ton pinaka times1 se integer ston pinaka times2
+		int [] times2 = new int [times1.size()];
+		for (int i = 0;i<times2.length;i++ ){
+			try {
+				times2[i] =Integer.parseInt((String) times1.get(i));
+			} catch(NumberFormatException nfe) {
+				nfe.printStackTrace();
+			}
+		}
+		// taksinomoume to pinaka times2 kai ton epistrefoume
+		Arrays.sort(times2);
+		return times2;
+	}
+	private String getToStringArivalTimes(int [] arTimes) {
+		// TODO Auto-generated method stub
+		String sdata="";
+		String nl = System.getProperty("line.separator");
+		
+		for (int i = 0;i<arTimes.length;i++ ){
+			sdata = sdata + arTimes[i] + nl ;
+		}
+	
+		return sdata;
+	}
+}

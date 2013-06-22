@@ -53,7 +53,7 @@ public class ShowLines extends ListActivity {
 		lineHelper.createDatabase();
 		lineHelper.open();
 		Cursor cL = lineHelper.getLineId(ShowLines.lineName);
-		lineId = Utility.GetColumnValue(cL, "id");
+		lineId = Utility.GetColumnValue(cL, "id");		
 		startManagingCursor(cL);
 		lineHelper.close();
 		Intent in = new Intent("com.tasos.oasthalarm.SHOWROUTE");

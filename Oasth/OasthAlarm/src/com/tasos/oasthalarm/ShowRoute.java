@@ -14,7 +14,7 @@ public class ShowRoute extends Activity implements OnClickListener{
 	
 	Button bterma,bvasi;
 	TextView tvLines;
-	public static String broute;
+	public static String broute,routeName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +35,13 @@ public class ShowRoute extends Activity implements OnClickListener{
 		switch(v.getId()){
 		case R.id.bPros:
 			broute="1";
+			routeName="ÙÔ ‘≈—Ã¡";
 			//Intent in = new Intent("com.tasos.oasthalarm.SHOWSTOPS");
 	    	//startActivity(in);
 	    	break;
 	    case R.id.bEpistrofi:
 	    	broute="2";
+	    	routeName="ÙÁÌ ¡÷≈‘«—…¡";
 	    	//Intent in2 = new Intent("com.tasos.oasthalarm.SHOWSTOPS");
 	    	//startActivity(in2);
 	    	break;
