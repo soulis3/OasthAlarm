@@ -38,7 +38,8 @@ public class AlarmNot extends Activity implements OnClickListener{
 	MediaPlayer ourSong;
 	boolean NotExists;
 	boolean isRinging;
-	int table[]  = {2,5,7,10,12};
+	//int table[]  = {2,5,7,10,12};
+	ArivalTimes ar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -54,60 +55,69 @@ public class AlarmNot extends Activity implements OnClickListener{
 		isRinging=false;
 		AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
 		TextView tvAr = (TextView) findViewById(R.id.tvArivalTimes);
-	/*	if(isOnline()){
-		ArivalTimes ar=new ArivalTimes();
+		if(isOnline()){
+		ar=new ArivalTimes();
 		tvAr.setText(ar.sdata);
-		//table=new int [ar.arTimes.length];
-		//System.arraycopy(ar.arTimes, 0, table, 0, ar.arTimes.length);
-	
-	//	exactMin = getExactMin(ar.arTimes);
-	//	am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (SelectTime.timeNot * ONE_SECOND), pi );
+		
+		//elegxos gia to an einai o pinakas kenos -den yparxei oxima
+				//if(table==null){
+				if(ar.arTimes==null){	
+
+					dlgAlert.setMessage("Δεν υπάρχουν οχήματα αυτή τη στιγμή, δοκιμάστε αργότερα");
+					dlgAlert.setTitle("App Title");
+					dlgAlert.setPositiveButton("Ok",
+						    new DialogInterface.OnClickListener() {
+						        public void onClick(DialogInterface dialog, int which) {
+						          //dismiss the dialog  
+						        	finish();
+						        }
+						    });
+					dlgAlert.setCancelable(true);
+					dlgAlert.create().show();
+				}
+				else{
+					//elegxos gia to an o xronos pou epilextike einai megaliteros apo ton monadiko xrono afiksis
+					//if(table[0]<=SelectTime.timeNot && table.length==1){
+					if(ar.arTimes[0]<=SelectTime.timeNot && ar.arTimes.length==1){
+						//dlgAlert.setMessage("Επειλέξτε μεγαλύτερο χρόνο ειδοποίησης των "+table[0]+" λεπτών");
+						dlgAlert.setMessage("Επειλέξτε μεγαλύτερο χρόνο ειδοποίησης των "+ar.arTimes[0]+" λεπτών");
+						dlgAlert.setTitle("App Title");
+						dlgAlert.setPositiveButton("Ok",
+							    new DialogInterface.OnClickListener() {
+							        public void onClick(DialogInterface dialog, int which) {
+							          //dismiss the dialog  
+							        	finish();
+							        }
+							    });
+						dlgAlert.setCancelable(true);
+						dlgAlert.create().show();
+					}
+					//elegxos gia to an o xronos pou epilextike ksepernaei to megalitero xrono afiksis
+					//if(table[table.length-1]<=SelectTime.timeNot){
+					if(ar.arTimes[ar.arTimes.length-1]<=SelectTime.timeNot){
+						//dlgAlert.setMessage("Επειλέξτε μικρότερο χρόνο ειδοποίησης των "+table[table.length-1]+" λεπτών");
+						dlgAlert.setMessage("Επειλέξτε μικρότερο χρόνο ειδοποίησης των "+ar.arTimes[ar.arTimes.length-1]+" λεπτών");
+						dlgAlert.setTitle("App Title");
+						dlgAlert.setPositiveButton("Ok",
+							    new DialogInterface.OnClickListener() {
+							        public void onClick(DialogInterface dialog, int which) {
+							          //dismiss the dialog  
+							        	finish();
+							        }
+							    });
+						dlgAlert.setCancelable(true);
+						dlgAlert.create().show();
+					}
+					
+				}
 		}
 		else {
 			startActivityForResult(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS), 0);
 		}
-	*/
-		if(table==null){
-			
-
-			dlgAlert.setMessage("Δεν υπάρχουν οχήματα αυτή τη στιγμή, δοκιμάστε αργότερα");
-			dlgAlert.setTitle("App Title");
-			dlgAlert.setPositiveButton("Ok",
-				    new DialogInterface.OnClickListener() {
-				        public void onClick(DialogInterface dialog, int which) {
-				          //dismiss the dialog  
-				        	finish();
-				        }
-				    });
-			dlgAlert.setCancelable(true);
-			dlgAlert.create().show();
-		}
-		if(table[0]<=SelectTime.timeNot && table.length==1){
-			dlgAlert.setMessage("Επειλέξτε μεγαλύτερο χρόνο ειδοποίησης των "+table[0]+" λεπτών");
-			dlgAlert.setTitle("App Title");
-			dlgAlert.setPositiveButton("Ok",
-				    new DialogInterface.OnClickListener() {
-				        public void onClick(DialogInterface dialog, int which) {
-				          //dismiss the dialog  
-				        	finish();
-				        }
-				    });
-			dlgAlert.setCancelable(true);
-			dlgAlert.create().show();
-		}
-		if(table[table.length-1]<=SelectTime.timeNot){
-			dlgAlert.setMessage("Επειλέξτε μικρότερο χρόνο ειδοποίησης των "+table[table.length-1]+" λεπτών");
-			dlgAlert.setTitle("App Title");
-			dlgAlert.setPositiveButton("Ok",
-				    new DialogInterface.OnClickListener() {
-				        public void onClick(DialogInterface dialog, int which) {
-				          //dismiss the dialog  
-				        	finish();
-				        }
-				    });
-			dlgAlert.setCancelable(true);
-			dlgAlert.create().show();
-		}
+	
+		
+		
+		
 	}
 
 	@Override
@@ -121,7 +131,7 @@ public class AlarmNot extends Activity implements OnClickListener{
 				NotExists=false;
 				if(isRinging){
 				    	ourSong.release();
-				    	//finish();
+				    	
 				    }
 				Intent intent = getIntent();
 				finish();
@@ -164,8 +174,6 @@ public class AlarmNot extends Activity implements OnClickListener{
 			@Override
 			public void onReceive(Context c, Intent i) {
 				// TODO Auto-generated method stub
-				//Toast.makeText(c, "Η ειδοποιήση καταχωρήθηκε "+"\n exact : "+exactMin+"\n notmin : "+notMin, Toast.LENGTH_LONG).show();
-				
 				ourSong = MediaPlayer.create(AlarmNot.this, R.raw.splashsound);
 				ourSong.start();
 				isRinging=true;
@@ -179,33 +187,13 @@ public class AlarmNot extends Activity implements OnClickListener{
        //createNotification();
 		
 		
-		exactMin = getExactMin(table);
+		//exactMin = getExactMin(table);
+		exactMin = getExactMin(ar.arTimes);
 		notMin=exactMin-SelectTime.timeNot;
 		am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (notMin * ONE_MINUTE), pi );
 	}
 
-	/*
-	private void setup() {
-		// TODO Auto-generated method stub
-		br = new BroadcastReceiver(){
-
-			@Override
-			public void onReceive(Context c, Intent i) {
-				// TODO Auto-generated method stub
-				//Toast.makeText(c, "Η ειδοποιήση καταχωρήθηκε "+"\n exact : "+exactMin+"\n notmin : "+notMin, Toast.LENGTH_LONG).show();
-				
-				ourSong = MediaPlayer.create(AlarmNot.this, R.raw.splashsound);
-				ourSong.start();
-			}
-			
-		};
-		registerReceiver(br, new IntentFilter("com.tasos.oasthalarm") );
-        pi = PendingIntent.getBroadcast( this, 0, new Intent("com.tasos.oasthalarm"), 0 );
-        am = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
-        
-       createNotification();
-	}
-	*/
+	
 	private int getExactMin(int[] arTimes) {
 		// TODO Auto-generated method stub
 		int i=-1;
@@ -239,24 +227,7 @@ public class AlarmNot extends Activity implements OnClickListener{
 		    return false;
 		
 	}
-/*
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-	       am.cancel(pi);
-	       unregisterReceiver(br);
-		super.onDestroy();
-	}
-*/
-/*
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		ourSong.release();
-		finish();
-	}
-*/
+
 	
 	
 }

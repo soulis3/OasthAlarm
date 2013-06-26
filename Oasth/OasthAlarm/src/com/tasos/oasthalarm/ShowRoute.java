@@ -36,14 +36,12 @@ public class ShowRoute extends Activity implements OnClickListener{
 		case R.id.bPros:
 			broute="1";
 			routeName="ТО теяла";
-			//Intent in = new Intent("com.tasos.oasthalarm.SHOWSTOPS");
-	    	//startActivity(in);
+			
 	    	break;
 	    case R.id.bEpistrofi:
 	    	broute="2";
 	    	routeName="ТГМ ажетгяиа";
-	    	//Intent in2 = new Intent("com.tasos.oasthalarm.SHOWSTOPS");
-	    	//startActivity(in2);
+	    	
 	    	break;
 	    	}
 		Intent in = new Intent("com.tasos.oasthalarm.SHOWSTOPS");

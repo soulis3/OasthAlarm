@@ -10,13 +10,15 @@ import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener  {
 	
-	Button bLines ;
+	Button bLines,bNotView ;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		bLines = (Button) findViewById(R.id.button1);
+		bLines = (Button) findViewById(R.id.bCreate);
         bLines.setOnClickListener(this);
+        bNotView = (Button) findViewById(R.id.bNotView);
+        bNotView.setOnClickListener(this);
 	}
 
 	@Override
@@ -30,12 +32,16 @@ public class MainActivity extends Activity implements OnClickListener  {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
-		case R.id.button1:
+		case R.id.bCreate:
 			
 	    	//Utility.ShowMessageBox(this, "Number: "+ name);
 	    	Intent in = new Intent("com.tasos.oasthalarm.SHOWLINES");
 	    	startActivity(in);
-	    	
+	    	break;
+		case R.id.bNotView:
+			Intent in1 = new Intent("com.tasos.oasthalarm.CREATEDNOT");
+	    	startActivity(in1);
+	    	break;
 	    }
 	}
 	

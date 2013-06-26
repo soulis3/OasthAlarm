@@ -14,11 +14,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SelectTime extends Activity {
+public class SelectTime extends Activity implements OnClickListener{
 	Spinner spinner1;
 	TextView tvST;
-	Button btn;
-	public static int timeNot;
+	Button next,save;
+	public static int timeNot=1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,34 +26,17 @@ public class SelectTime extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selecttime);
 		tvST = (TextView) findViewById(R.id.tvST);
-		addListenerOnButton();
+		//addListenerOnButton();
 		tvST.setText("Για την στάση "+ShowStops.stopName+" της γραμμής "+ShowLines.lineName+" με προορισμό "
 				+ShowRoute.routeName+" ειδοποίηση σε : ");
 		//addListenerOnSpinnerItemSelection();
-	}
-
-	private void addListenerOnButton() {
-		// TODO Auto-generated method stub
 		spinner1 = (Spinner) findViewById(R.id.spinnerMinutes);
-		btn = (Button) findViewById(R.id.bNext);
-		btn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				timeNot=spinner1.getSelectedItemPosition()+1;
-				Intent in = new Intent("com.tasos.oasthalarm.ALARMNOT");
-		    	startActivity(in);
-			/*	Toast.makeText(SelectTime.this,
-						"OnClickListener : " + 
-				                "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) + 
-				                "\nlepta se Int : "+ String.valueOf(timeNot),
-							Toast.LENGTH_SHORT).show();
-			*/		  
-			}
-			
-		});
+		next = (Button) findViewById(R.id.bNext);
+		save = (Button) findViewById(R.id.bSave);
+		next.setOnClickListener(this);
+		save.setOnClickListener(this);
 	}
+
 
 	private void addListenerOnSpinnerItemSelection() {
 		// TODO Auto-generated method stub
@@ -61,6 +44,23 @@ public class SelectTime extends Activity {
 		
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 		
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()){
+		case R.id.bNext :
+			timeNot=spinner1.getSelectedItemPosition()+1;
+			Intent in = new Intent("com.tasos.oasthalarm.ALARMNOT");
+	    	startActivity(in);
+			break;
+		case R.id.bSave :
+			timeNot=spinner1.getSelectedItemPosition()+1;
+			Intent in1 = new Intent("com.tasos.oasthalarm.SAVENOT");
+	    	startActivity(in1);
+			break;
+		}
 	}
 
 	

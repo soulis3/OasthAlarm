@@ -9,10 +9,20 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/bCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Άμεση Δημιουργία Ειδοποίησης" />
+
+    <Button
+        android:id="@+id/bNotView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bCreate"
+        android:layout_alignRight="@+id/bCreate"
+        android:layout_below="@+id/bCreate"
+        android:layout_marginTop="16dp"
+        android:text="Αποθηκευμένες Ειδοποιήσεις" />
 
 </RelativeLayout>

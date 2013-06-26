@@ -41,18 +41,7 @@ public class Stop extends PinakasAdapter {
              throw mSQLException; 
          } 
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName_gr() {
-		return name_gr;
-	}
-	public void setName_gr(String name_gr) {
-		this.name_gr = name_gr;
-	}
+
 	public Cursor getStopId(String stop,String lineid,String dir) 
     { 
         try 

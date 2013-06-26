@@ -88,6 +88,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+         <activity
+            android:name="com.tasos.oasthalarm.SaveNot"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.SAVENOT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tasos.oasthalarm.CreatedNot"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.tasos.oasthalarm.CREATEDNOT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

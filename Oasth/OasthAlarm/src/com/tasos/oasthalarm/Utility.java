@@ -17,7 +17,13 @@ public class Utility {
 		}
 	}
  	
-
+ 	public static int GetColumnIntValue(Cursor cur, String ColumnName) {
+		try {
+			return cur.getInt(cur.getColumnIndex(ColumnName));
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
 	
 	public static void ShowMessageBox(Context cont, String msg) {
 		Toast toast = Toast.makeText(cont, msg, Toast.LENGTH_SHORT);

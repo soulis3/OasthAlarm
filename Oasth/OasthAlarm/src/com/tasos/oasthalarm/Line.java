@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class Line extends PinakasAdapter{
 	
-	private String id,num,name_gr;
+
 	
 	
 	public Line(Context context) {
@@ -33,24 +33,7 @@ public class Line extends PinakasAdapter{
             throw mSQLException; 
         } 
     }
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getNum() {
-		return num;
-	}
-	public void setNum(String num) {
-		this.num = num;
-	}
-	public String getName_gr() {
-		return name_gr;
-	}
-	public void setName_gr(String name_gr) {
-		this.name_gr = name_gr;
-	}
+	
 	public Cursor getLineId(String line) 
     { 
         try 
