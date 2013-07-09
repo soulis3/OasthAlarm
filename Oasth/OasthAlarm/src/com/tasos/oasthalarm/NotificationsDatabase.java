@@ -107,5 +107,9 @@ public class NotificationsDatabase {
             throw mSQLException; 
         } 
     }
+	public boolean deleteEntry(String dlRow) throws SQLException{
+		// TODO Auto-generated method stub
+		return notDatabase.delete(NOTDATABASE_TABLE, KEY_COMMENT +" ='"+ dlRow+"'",null)>0;
+	}
 
 }

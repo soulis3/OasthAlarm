@@ -2,38 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:weightSum="10"
     android:orientation="horizontal" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-       	android:layout_height="wrap_content"
-        android:layout_weight="7"
-       
-        android:inputType="number" >
+    <RelativeLayout
+        android:layout_width="240sp"
+        android:layout_height="50sp"
+        android:orientation="horizontal"
+        android:weightSum="10" >
 
-        <requestFocus />
-    </EditText>
-	<LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="3"
-	    android:weightSum="2"
-	    >"
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="10dp"
-        android:text="+" />
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="-" />
- 	</LinearLayout>
+        <Button
+            android:id="@+id/bMinus"
+            android:layout_width="60sp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="-" 
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/bPlus"
+            android:layout_width="60sp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="+" 
+            android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/bPlus"
+            android:layout_toRightOf="@+id/bMinus"
+            android:ems="10"
+            android:inputType="number"
+            android:text="1"
+            android:textSize="20sp"
+            android:gravity="center" >
+
+            <requestFocus />
+        </EditText>
+       
+    </RelativeLayout>
+
 </LinearLayout>

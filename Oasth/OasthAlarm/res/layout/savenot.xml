@@ -2,39 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+   
     android:orientation="vertical" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Είστε σίγουροι οτι θέλετε να αποθηκεύσετε την ειδοποίηση : " />
+        android:text="Είστε σίγουροι οτι θέλετε να αποθηκεύσετε την ειδοποίηση : "
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tvSavedata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/etComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="Εισαγωγή Σχολίου" >
+        android:hint="Δώστε ένα όνομα"
+        android:textSize="20dp" >
 
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/bsOK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ok" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70sp"
+        android:orientation="horizontal"
+        android:weightSum="100" >
 
-    <Button
-        android:id="@+id/bsCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ακύρωση" />
+        <Button
+            android:id="@+id/bsOK"
+             android:layout_width="fill_parent"
+            android:layout_height="70sp"
+            android:layout_weight="50"
+            android:textSize="24sp"
+            android:text="ΟΚ" />
+
+        <Button
+            android:id="@+id/bsCancel"
+             android:layout_width="fill_parent"
+            android:layout_height="70sp"
+            android:layout_weight="50"
+            android:textSize="24sp"
+            android:text="Ακύρωση" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import com.tasos.oasthalarm.R.id;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,7 +25,8 @@ public class ShowRoute extends Activity implements OnClickListener{
 		bterma=(Button) findViewById(R.id.bPros);
 		bvasi=(Button) findViewById(R.id.bEpistrofi);
 		tvLines = (TextView) findViewById(R.id.tvLine);
-		tvLines.setText(ShowLines.lineName);
+		String text = "<font color='green'>"+ShowLines.lineName+"</font>";
+		tvLines.setText(Html.fromHtml(text), TextView.BufferType.SPANNABLE);
 		bvasi.setOnClickListener(this);
 		bterma.setOnClickListener(this);
 	}

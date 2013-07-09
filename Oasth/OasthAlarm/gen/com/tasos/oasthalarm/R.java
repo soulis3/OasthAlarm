@@ -13,6 +13,17 @@ public final class R {
     }
     public static final class attr {
     }
+    public static final class color {
+        public static final int black=0x7f080007;
+        public static final int blue=0x7f080002;
+        public static final int green=0x7f080003;
+        public static final int indigo=0x7f080001;
+        public static final int orange=0x7f080005;
+        public static final int red=0x7f080006;
+        public static final int violet=0x7f080000;
+        public static final int white=0x7f080008;
+        public static final int yellow=0x7f080004;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -27,37 +38,42 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0013;
-        public static final int bCancel=0x7f0a0004;
-        public static final int bConfirm=0x7f0a0003;
-        public static final int bCreate=0x7f0a0000;
-        public static final int bEpistrofi=0x7f0a0008;
-        public static final int bNext=0x7f0a000f;
-        public static final int bNotView=0x7f0a0001;
-        public static final int bPros=0x7f0a0007;
-        public static final int bSave=0x7f0a0010;
-        public static final int bsCancel=0x7f0a000c;
-        public static final int bsOK=0x7f0a000b;
-        public static final int button1=0x7f0a0012;
-        public static final int editText1=0x7f0a0011;
-        public static final int etComment=0x7f0a000a;
-        public static final int spinnerMinutes=0x7f0a000e;
-        public static final int tvArivalTimes=0x7f0a0002;
-        public static final int tvLine=0x7f0a0006;
-        public static final int tvProorismos=0x7f0a0005;
-        public static final int tvST=0x7f0a000d;
-        public static final int tvSavedata=0x7f0a0009;
+        public static final int action_settings=0x7f0b0017;
+        public static final int bCancel=0x7f0b0005;
+        public static final int bConfirm=0x7f0b0004;
+        public static final int bCreate=0x7f0b0001;
+        public static final int bEpistrofi=0x7f0b000b;
+        public static final int bMinus=0x7f0b0011;
+        public static final int bNext=0x7f0b0014;
+        public static final int bNotView=0x7f0b0002;
+        public static final int bPlus=0x7f0b0012;
+        public static final int bPros=0x7f0b000a;
+        public static final int bSave=0x7f0b0015;
+        public static final int bsCancel=0x7f0b000f;
+        public static final int bsOK=0x7f0b000e;
+        public static final int editText1=0x7f0b0016;
+        public static final int etComment=0x7f0b000d;
+        public static final int etMins=0x7f0b0013;
+        public static final int listView1=0x7f0b0007;
+        public static final int textView1=0x7f0b0000;
+        public static final int tvArivalTimes=0x7f0b0003;
+        public static final int tvLine=0x7f0b0009;
+        public static final int tvProorismos=0x7f0b0008;
+        public static final int tvST=0x7f0b0010;
+        public static final int tvSavedNots=0x7f0b0006;
+        public static final int tvSavedata=0x7f0b000c;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int alarm=0x7f030001;
-        public static final int route=0x7f030002;
-        public static final int savenot=0x7f030003;
-        public static final int selecttime=0x7f030004;
-        public static final int test=0x7f030005;
+        public static final int cretednot=0x7f030002;
+        public static final int route=0x7f030003;
+        public static final int savenot=0x7f030004;
+        public static final int selecttime=0x7f030005;
+        public static final int test=0x7f030006;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
+        public static final int main=0x7f0a0000;
     }
     public static final class raw {
         public static final int splashsound=0x7f040000;
@@ -79,10 +95,10 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static final int AppBaseTheme=0x7f080000;
+        public static final int AppBaseTheme=0x7f090000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f080001;
+        public static final int AppTheme=0x7f090001;
     }
 }

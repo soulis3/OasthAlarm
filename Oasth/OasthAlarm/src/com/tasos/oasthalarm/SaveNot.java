@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SaveNot extends Activity implements OnClickListener{
 	TextView tvs;
@@ -19,12 +21,19 @@ public class SaveNot extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.savenot);
+		String text = "Για την στάση <font color='red'>"+ShowStops.stopName+"</font>" +
+				"\nτης γραμμής <font color='blue'>"+ShowLines.lineName+"</font>" +
+				"\nμε προορισμό  <font color='green'>"+ShowRoute.routeName+"</font>" +
+				"\nειδοποίηση σε <font color='yellow'>"+SelectTime.timeNot +" λεπτό(-ά) " +"</font>" +
+				"\nκαι όνομα :";
 		tvs =(TextView) findViewById(R.id.tvSavedata);
+		tvs.setText(Html.fromHtml(text), TextView.BufferType.SPANNABLE);
 		etcomment = (EditText) findViewById(R.id.etComment);
 		ok = (Button) findViewById(R.id.bsOK);
 		cancel = (Button) findViewById(R.id.bsCancel);
 		ok.setOnClickListener(this);
 		cancel.setOnClickListener(this);
+	
 	}
 	@Override
 	public void onClick(View v) {
@@ -43,20 +52,13 @@ public class SaveNot extends Activity implements OnClickListener{
 			}catch(Exception e){
 				didItWork=false;
 				String error=e.toString();
-				Dialog d=new Dialog(this);
-				d.setTitle("Dang it");
-				TextView tv= new TextView(this);
-				tv.setText(error);
-				d.setContentView(tv);
-				d.show();
+				Toast.makeText(SaveNot.this, "Η ειδοποιήση "+comment+" δεν αποθηκεύτηκε!" +
+						"Λόγω : "+error, Toast.LENGTH_LONG).show();
 			}finally{
 				if(didItWork){
-					Dialog d=new Dialog(this);
-					d.setTitle("Heck yea");
-					TextView tv= new TextView(this);
-					tv.setText("Success");
-					d.setContentView(tv);
-					d.show();
+					Toast.makeText(SaveNot.this, "Η ειδοποιήση "+comment+" αποθηκεύτηκε! ", Toast.LENGTH_LONG).show();
+					Intent in = new Intent("com.tasos.oasthalarm.SELECTTIME");
+			    	startActivity(in);
 				}
 			}
 			break;

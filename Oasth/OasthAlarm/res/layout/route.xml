@@ -2,34 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    
+    android:orientation="vertical" 
+    >
 
     <TextView
         android:id="@+id/tvProorismos"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
-        android:text="Επιλογή Προορισμού" />
+        android:text="Επιλογή Προορισμού"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
     
     <TextView
         android:id="@+id/tvLine"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/bPros"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="ΠΡΟΣ ΤΟ ΤΕΡΜΑ" />
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:text="ΜΕΤΑΒΑΣΗ"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/bEpistrofi"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="ΠΡΟΣ ΤΗ ΒΑΣΗ" />
+       android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:text="ΕΠΙΣΤΡΟΦΗ"
+        android:textSize="24sp" />
 
 </LinearLayout>
